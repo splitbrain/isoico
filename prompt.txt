@@ -1,0 +1,18 @@
+Create a single isometric icon with a 30-degree isometric projection, viewed from above at a 3/4 angle facing southwest. Center the object in the frame with generous padding.
+
+Style: Clean, minimal line art with flat shading. Sharp, crisp edges. No gradients, textures, noise, or anti-aliased soft edges. The output must be easily convertible to SVG with automated tracing tools.
+
+Colors (use only these):
+
+- #000000 (black) - outlines and details
+- #cdd9ee (light blue) - primary color. main and top surfaces
+- #6885a9 (blue-gray) - secondary color, additional surfaces and details
+- #4b6e98 (dark blue) - shadow, depth and shaded surfaces
+- #f0f7ff (off-white) - highlights, light and reflective surfaces
+- #949699 (gray) - drop shadow for the object only
+
+The object itself must be completely solid and opaque with no transparent or semi-transparent areas within it. Only the background outside the object should be transparent.
+
+Do not include: text, labels, background elements, decorations or multiple objects. The icon must work as part of a consistent icon set.
+
+Create an icon depicting the following subject:
