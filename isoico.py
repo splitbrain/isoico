@@ -75,6 +75,29 @@ def save_image(b64_data, output_path):
         f.write(image_data)
 
 
+def convert_to_svg(png_path, svg_path):
+    """Convert PNG to SVG using vtracer."""
+    import subprocess
+    result = subprocess.run(
+        [
+            "vtracer",
+            "--input", png_path,
+            "--output", svg_path,
+            "--mode", "polygon",          # Sharp edges instead of splines
+            "--filter_speckle", "8",      # Remove small artifacts
+            "--color_precision", "4",     # Fewer color buckets (5 colors)
+            "--corner_threshold", "45",   # Preserve sharp corners
+            "--segment_length", "4",      # Shorter segments for precision
+            "--splice_threshold", "45",   # Join paths at sharp angles
+        ],
+        capture_output=True, text=True
+    )
+    if result.returncode != 0:
+        print(f"Warning: vtracer failed: {result.stderr}", file=sys.stderr)
+        return False
+    return True
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Generate isometric icons using OpenAI's image API"
@@ -97,13 +120,21 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     out_dir = os.path.join(script_dir, "out")
     output_path = os.path.join(out_dir, f"{args.basename}.png")
+    svg_path = os.path.join(out_dir, f"{args.basename}.svg")
 
-    if os.path.exists(output_path) and not args.force:
-        print(
-            f"Error: {output_path} already exists. Use -f to overwrite.",
-            file=sys.stderr,
-        )
-        sys.exit(1)
+    if not args.force:
+        if os.path.exists(output_path):
+            print(
+                f"Error: {output_path} already exists. Use -f to overwrite.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        if os.path.exists(svg_path):
+            print(
+                f"Error: {svg_path} already exists. Use -f to overwrite.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
 
     os.makedirs(out_dir, exist_ok=True)
 
@@ -119,6 +150,9 @@ def main():
 
     save_image(b64_data, output_path)
     print(f"Saved to: {output_path}")
+
+    if convert_to_svg(output_path, svg_path):
+        print(f"Saved to: {svg_path}")
 
 
 if __name__ == "__main__":
