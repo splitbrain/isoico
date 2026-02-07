@@ -7,9 +7,9 @@ Colors (use only these):
 - #000000 (black) - outlines and details
 - #cdd9ee (light blue) - primary color. main and top surfaces
 - #6885a9 (blue-gray) - secondary color, additional surfaces and details
+- #f0f7ff (off-white) - top surfaces, highlights, light and reflective surfaces
 - #4b6e98 (dark blue) - shadow, depth and shaded surfaces
-- #f0f7ff (off-white) - highlights, light and reflective surfaces
-- #949699 (gray) - drop shadow for the object only
+
 
 The object itself must be completely solid and opaque with no transparent or semi-transparent areas within it. Only the background outside the object should be transparent.
 
